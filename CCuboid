@@ -1,0 +1,60 @@
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
+class CRectangle	//基类
+{
+public:
+	CRectangle(int width, int height);
+	~CRectangle();
+	double circum();
+	double area();
+protected:
+	int width;
+	int height;
+};
+CRectangle::CRectangle(int width, int height)	//定义基类带参构造函数
+{
+	this->width = width;
+	this->height = height;
+	cout << "建立基类对象" << endl;
+}
+CRectangle::~CRectangle()	//定义基类析构函数
+{
+	cout << "撤销基类对象" << endl;
+}
+double CRectangle::circum()		//周长计算成员函数
+{
+	return 2 * (width + height);
+}
+double CRectangle::area()		//面积计算成员函数
+{
+	return width*height;
+}
+class CCuboid :public CRectangle		//公有继承的派生类
+{
+public:
+	CCuboid(int width, int height, int length);		//声明派生类构造函数
+	~CCuboid();		//声明派生类计算体积成员函数
+	double volume();
+private:
+	int length;		//声明派生类长度成员变量
+};
+CCuboid::CCuboid(int width, int height, int length) :CRectangle(width, height)	//定义派生类构造函数
+{
+	this->length = length;
+	cout << "建立派生类对象" << endl;
+}
+CCuboid::~CCuboid()		//定义派生类析构函数
+{
+	cout << "撤销派生类对象" << endl;
+}
+double CCuboid::volume()	//定义派生类计算体积成员函数
+{
+	return width*height*length;
+}
+void main()
+{
+	CCuboid*pCuboid = new CCuboid(15, 15, 30);
+	cout << "长方形的体积为：" << pCuboid->volume() << endl;
+	system("pause");
+}
